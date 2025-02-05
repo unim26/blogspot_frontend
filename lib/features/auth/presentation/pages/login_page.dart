@@ -5,7 +5,6 @@ import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_state.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_pasword_event.dart';
-import 'package:blogspot/features/auth/presentation/blocs/user/remote/password_bloc/password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_event.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_state.dart';
@@ -25,7 +24,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double sHeight = MediaQuery.of(context).size.height;
-    final double sWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: BlocConsumer<RemoteUserBloc, RemoteUserState>(
       builder: (context, state) {

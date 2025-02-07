@@ -23,16 +23,16 @@ abstract class UserApiService {
 
   //api call to send otp
   @GET("/sendotp")
-  Future<HttpResponse<bool>> sendOtp(@Query('EMAIL') String email);
+  Future<HttpResponse> sendOtp(@Query('EMAIL') String email);
 
   //api call to verify otp
   @GET("/verifyotp")
-  Future<HttpResponse<bool>> verifyOtp(
+  Future<HttpResponse> verifyOtp(
       @Query('EMAIL') String email, @Query('OTP') String otp);
 
   //api to forgot password
   @PATCH("/forgotpassword")
-  Future<HttpResponse<bool>> forgotPassword(
+  Future<HttpResponse> forgotPassword(
       @Query('EMAIL') String email, @Query('WORD') String password);
 
   // @PUT("/user")

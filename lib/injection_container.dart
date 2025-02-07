@@ -12,7 +12,9 @@ import 'package:blogspot/features/auth/domain/usecases/user_usecase/signup_user_
 import 'package:blogspot/features/auth/domain/usecases/otp_usecase/verify_otp_usecase.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/local/local_user_cubit.dart';
+import 'package:blogspot/features/auth/presentation/blocs/user/local/timer_provider.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/otp_bloc/otp_bloc.dart';
+import 'package:blogspot/features/auth/presentation/blocs/user/remote/password_bloc/password_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -81,7 +83,14 @@ Future<void> initLocator() async {
       ));
 
   //obscure password bloc
-  locator.registerFactory(() => ObscurePasswordBloc());
+  locator.registerFactory<ObscurePasswordBloc>(() => ObscurePasswordBloc());
+
+  //password bloc
+  locator.registerFactory<PasswordBloc>(
+      () => PasswordBloc(locator<ForgotPasswordUsecase>()));
+
+  //timer provider
+  locator.registerFactory<TimerProvider>(() => TimerProvider());
 
   //validators
   locator.registerSingleton<Validator>(Validator());

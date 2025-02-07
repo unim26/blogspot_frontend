@@ -23,14 +23,24 @@ class MyRoutes {
 
     //otp verification page route
     'otpVerificationPage': (context) {
-      final routeName = ModalRoute.of(context)?.settings.arguments as String;  // Fetch the argument
-      return VerifyOtpPage(routeName: routeName);
+      final Map<String, String> args = ModalRoute.of(context)?.settings.arguments
+          as Map<String, String>; // Fetch the argument
+      return VerifyOtpPage(
+        routeName: args['routeName'] ?? '',
+        email: args['email'] ?? '',
+      );
     },
 
     //change password page route
-    'changePasswordPage': (context) => ChangePasswordPage(),
+    'changePasswordPage': (context) {
+      final email = ModalRoute.of(context)?.settings.arguments as String;
+
+      return ChangePasswordPage(
+        userEmail: email,
+      );
+    },
 
     //home page route
-    'homePage' : (context) => HomePage(),
+    'homePage': (context) => HomePage(),
   };
 }

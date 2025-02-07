@@ -90,7 +90,7 @@ class SignupPage extends StatelessWidget {
                 height: sHeight * .02,
               ),
 
-              //Button ------> login
+              //Button ------> signup
               myButton(
                 bName: "SignUp",
                 onPressed: () {},
@@ -117,7 +117,7 @@ class SignupPage extends StatelessWidget {
                         text: "Login",
                         style: TextStyle(
                           fontSize: sHeight * .02,
-                          color: Colors.red,
+                          color: Colors.black54,
                         ),
                       ),
                     ],

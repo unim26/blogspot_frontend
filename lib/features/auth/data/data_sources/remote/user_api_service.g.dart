@@ -78,12 +78,12 @@ class _UserApiService implements UserApiService {
   }
 
   @override
-  Future<HttpResponse<bool>> sendOtp(String email) async {
+  Future<HttpResponse<dynamic>> sendOtp(String email) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'EMAIL': email};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<bool>>(
+    final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -93,25 +93,19 @@ class _UserApiService implements UserApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<bool>(_options);
-    late bool _value;
-    try {
-      _value = _result.data!;
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<bool>> verifyOtp(String email, String otp) async {
+  Future<HttpResponse<dynamic>> verifyOtp(String email, String otp) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'EMAIL': email, r'OTP': otp};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<bool>>(
+    final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -121,20 +115,14 @@ class _UserApiService implements UserApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<bool>(_options);
-    late bool _value;
-    try {
-      _value = _result.data!;
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<bool>> forgotPassword(
+  Future<HttpResponse<dynamic>> forgotPassword(
     String email,
     String password,
   ) async {
@@ -145,7 +133,7 @@ class _UserApiService implements UserApiService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<bool>>(
+    final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -155,14 +143,8 @@ class _UserApiService implements UserApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<bool>(_options);
-    late bool _value;
-    try {
-      _value = _result.data!;
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }

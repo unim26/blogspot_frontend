@@ -5,6 +5,7 @@ import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_state.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_pasword_event.dart';
+import 'package:blogspot/features/auth/presentation/blocs/user/local/local_user_cubit.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_event.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/user_bloc/remote_user_state.dart';
@@ -128,7 +129,7 @@ class LoginPage extends StatelessWidget {
                             "Forgot Password?",
                             style: TextStyle(
                               fontSize: sHeight * .022,
-                              color: Colors.red,
+                              color: Colors.black54,
                             ),
                           ),
                         ),
@@ -144,8 +145,11 @@ class LoginPage extends StatelessWidget {
                     myButton(
                       bName: "LogIn",
                       onPressed: () {
+                        //LOGIN METHOD
+
                         //check for validation
                         if (_formKey.currentState!.validate()) {
+                          //calling login function
                           context.read<RemoteUserBloc>().add(
                                 RemoteUserLoginEvent(
                                   email: emailController.text,
@@ -177,7 +181,7 @@ class LoginPage extends StatelessWidget {
                               text: "Sign Up",
                               style: TextStyle(
                                 fontSize: sHeight * .02,
-                                color: Colors.red,
+                                color: Colors.black54,
                               ),
                             ),
                           ],
@@ -214,6 +218,9 @@ class LoginPage extends StatelessWidget {
             color: Colors.green,
             message: "You’ve successfully logged in. Let’s get started!",
           );
+
+          //save user auth token
+          context.read<LocalUserCubit>().saveUserAuthToken(state.user!.token!);
 
           //navigate to homepage
           Navigator.pushNamedAndRemoveUntil(

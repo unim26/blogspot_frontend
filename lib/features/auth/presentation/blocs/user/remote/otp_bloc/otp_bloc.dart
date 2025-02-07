@@ -16,6 +16,9 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   ) : super(OtpInitialState()) {
     //listing to send otp event
     on<SendOtpEvent>(onOtpSend);
+
+    //listing to otpverify event
+    on<VerifyOtpEvent>(onOtpVerify);
   }
 
   //on Otp send event
@@ -24,17 +27,16 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     emit(OtpLoadingState());
 
     //try to send otp
-    final datastae = await _sendOtpUsecase.call(event.email);
+    final datastate = await _sendOtpUsecase.call(event.email);
 
     //if datastate is datasuccess
-    if (datastae is DataSuccess && datastae.data != null) {
+    if (datastate is DataSuccess) {
       emit(OtpSentState());
     }
 
     //if datastate is datafail
-    if (datastae is DataFailed) {
-      emit(OtpFailedState(
-          "User does not exist or you have entered wrong email"));
+    if (datastate is DataFailed) {
+      emit(OtpFailedState(datastate.message!));
     }
   }
 
@@ -52,10 +54,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       emit(OtpVerifiedState());
     }
 
-
     //if datastate is datafail
     if (datastate is DataFailed) {
-      emit(OtpFailedState("Invalid OTP, please enter OTP send to your resitered emial"));
+      emit(OtpFailedState(
+          "Invalid OTP, please enter OTP send to your resitered emial"));
     }
   }
 }

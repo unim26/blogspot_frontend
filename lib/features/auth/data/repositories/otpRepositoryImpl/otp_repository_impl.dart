@@ -9,13 +9,11 @@ class OtpRepositoryImpl implements OtpRepository {
 
   OtpRepositoryImpl(this._userApiService);
 
-
   //send otp method
   @override
-  Future<DataState<bool>> sendOtp(String email) async{
+  Future<DataState<bool>> sendOtp(String email) async {
     try {
       final httpresponse = await _userApiService.sendOtp(email);
-
 
       //check if staus is ok
       if (httpresponse.response.statusCode == 200) {
@@ -35,10 +33,9 @@ class OtpRepositoryImpl implements OtpRepository {
     }
   }
 
-
   //verify otp method
   @override
-  Future<DataState<bool>> verifyOtp(String email, String otp) async{
+  Future<DataState<bool>> verifyOtp(String email, String otp) async {
     try {
       final httpresponse = await _userApiService.verifyOtp(email, otp);
 
@@ -56,8 +53,6 @@ class OtpRepositoryImpl implements OtpRepository {
       } else {
         return DataFailed(error ?? 'something went wrong');
       }
-
-      
     }
   }
 }

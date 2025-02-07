@@ -32,7 +32,8 @@ Widget myTextField({
         //temp
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Colors.red, width: 2.5),
+          borderSide: const BorderSide(
+              color: Color.fromARGB(255, 255, 172, 47), width: 2.5),
         ),
         // enabledBorder: OutlineInputBorder(
         //   borderRadius: BorderRadius.circular(15),

@@ -19,7 +19,7 @@ void main() async {
     providers: [
       //obscure password bloc
       BlocProvider(
-        create: (context) => locator<ObscurePasswordBloc>(),
+        create: (context) => ObscurePasswordBloc(),
       ),
 
       // remoteuser bloc

@@ -2,6 +2,9 @@ import 'package:blogspot/core/utils/methods/validator.dart';
 import 'package:blogspot/core/utils/widgests/my_button.dart';
 import 'package:blogspot/core/utils/widgests/my_snack_bar.dart';
 import 'package:blogspot/core/utils/widgests/my_text_field.dart';
+import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
+import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_state.dart';
+import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_pasword_event.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/password_bloc/password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/password_bloc/password_event.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/password_bloc/password_state.dart';
@@ -27,7 +30,6 @@ class ChangePasswordPage extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<PasswordBloc, PasswordState>(
         listener: (context, state) {
-
           //if state is error state
           if (state is PasswordFailToForgotState) {
             //show error message
@@ -54,7 +56,6 @@ class ChangePasswordPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-
           //if state is loading state
           if (state is PasswordLoadingState) {
             return Center(
@@ -104,31 +105,61 @@ class ChangePasswordPage extends StatelessWidget {
 
                     //text field ------> password
 
-                    myTextField(
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      hintText: "************",
-                      labelText: "Enter your new password",
-                      prefixIcon: Icons.lock,
-                      validator: (val) =>
-                          locator<Validator>().validatePassword(val!),
+                    BlocBuilder<ObscurePasswordBloc, ObscurePasswordState>(
+                      buildWhen: (previous, current) => previous != current,
+                      builder: (context, state) {
+                        return myTextField(
+                          controller: passwordController,
+                          obscureText: state.isObsucre,
+                          keyboardType: TextInputType.visiblePassword,
+                          hintText: "************",
+                          labelText: "Enter your new password",
+                          prefixIcon: Icons.lock,
+                          suffixIcon: state.isObsucre
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onPressed: () {
+                            context.read<ObscurePasswordBloc>().add(
+                                  ObscurePasswordToggleEvent(
+                                      isObscure: !state.isObsucre),
+                                );
+                          },
+                          validator: (val) =>
+                              locator<Validator>().validatePassword(val!),
+                        );
+                      },
                     ),
 
                     //text field ------> confirm password
 
-                    myTextField(
-                        controller: confirmPasswordController,
-                        keyboardType: TextInputType.visiblePassword,
-                        hintText: "*********",
-                        labelText: "confirm your new password",
-                        prefixIcon: Icons.lock,
-                        validator: (val) {
-                          if (val != passwordController.text) {
-                            return "Password does not matched";
-                          } else {
-                            return null;
-                          }
-                        }),
+                    BlocBuilder<ObscurePasswordBloc, ObscurePasswordState>(
+                      buildWhen: (previous, current) => previous != current,
+                      builder: (context, state) {
+                        return myTextField(
+                            controller: confirmPasswordController,
+                            obscureText: state.isObsucre,
+                            keyboardType: TextInputType.visiblePassword,
+                            hintText: "*********",
+                            labelText: "confirm your new password",
+                            prefixIcon: Icons.lock,
+                            suffixIcon: state.isObsucre
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            onPressed: () {
+                              context.read<ObscurePasswordBloc>().add(
+                                    ObscurePasswordToggleEvent(
+                                        isObscure: !state.isObsucre),
+                                  );
+                            },
+                            validator: (val) {
+                              if (val != passwordController.text) {
+                                return "Password does not matched";
+                              } else {
+                                return null;
+                              }
+                            });
+                      },
+                    ),
 
                     //space
                     SizedBox(

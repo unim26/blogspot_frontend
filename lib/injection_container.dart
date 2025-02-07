@@ -82,8 +82,8 @@ Future<void> initLocator() async {
         locator<VerifyOtpUsecase>(),
       ));
 
-  //obscure password bloc
-  locator.registerFactory<ObscurePasswordBloc>(() => ObscurePasswordBloc());
+  // //obscure password bloc
+  // locator.registerFactory<ObscurePasswordBloc>(() => ObscurePasswordBloc());
 
   //password bloc
   locator.registerFactory<PasswordBloc>(

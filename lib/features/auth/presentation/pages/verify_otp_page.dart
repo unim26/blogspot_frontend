@@ -73,7 +73,6 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
           }
         },
         builder: (context, state) {
-
           //if state is loading state
           if (state is OtpLoadingState) {
             return Center(
@@ -156,10 +155,15 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                     builder: (context, value, child) {
                       return TextButton(
                         onPressed: () {
+                          //resend otp to user
                           if (!value.isrunning) {
+                            //call otp send function
                             context.read<OtpBloc>().add(
                                   SendOtpEvent(email: widget.email),
                                 );
+
+                            //start timer for next request
+                            context.read<TimerProvider>().start();
                           }
                         },
                         child: Text(

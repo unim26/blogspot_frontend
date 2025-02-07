@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 class TimerProvider extends ChangeNotifier {
-  int _minute = 05;
+  int _minute = 04;
   int _second = 60;
   bool _isrunning = false;
 
@@ -23,13 +23,15 @@ class TimerProvider extends ChangeNotifier {
           if (isrunning) {
             _second--;
 
-            if (_second == 00) {
+            if (_minute == 0 && _second == 0) {
+              timer.cancel();
+              _minute = 04;
+               _second = 60;
+              _isrunning = !_isrunning;
+              notifyListeners();
+            } else if (_second == 00) {
               _second = 60;
               _minute--;
-              notifyListeners();
-            } else if (_minute == 00) {
-              timer.cancel();
-              _isrunning = !_isrunning;
               notifyListeners();
             }
 

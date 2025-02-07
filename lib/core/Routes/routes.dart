@@ -9,19 +9,19 @@ import 'package:flutter/material.dart';
 
 class MyRoutes {
   Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
-    //onboard page route
+    //<==============================onboard page route
     'onboardPage': (context) => OnBoardingPage(),
 
-    //login page route
+    //<===============================login page route
     'loginPage': (context) => LoginPage(),
 
-    //signup page route
+    //<=================================signup page route
     'signupPage': (context) => SignupPage(),
 
-    //forgot password page route
+    //<==============================forgot password page route
     'forgotPasswordPage': (context) => ForgotPasswordPage(),
 
-    //otp verification page route
+    //<=============================otp verification page route
     'otpVerificationPage': (context) {
       final Map<String, String> args = ModalRoute.of(context)?.settings.arguments
           as Map<String, String>; // Fetch the argument

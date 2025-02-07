@@ -1,4 +1,5 @@
 import 'package:blogspot/core/utils/widgests/my_button.dart';
+import 'package:blogspot/core/utils/widgests/my_loading_indicator.dart';
 import 'package:blogspot/core/utils/widgests/my_snack_bar.dart';
 import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/local/timer_provider.dart';
@@ -61,7 +62,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
             mySnacBar(
               context,
               color: Colors.green,
-              message: "OTP verified..!,Update your password",
+              message:widget.routeName != 'homePage' ? "Email verified..!,Update your password" : 'Email verified..!',
             );
 
             //navigate to next page ('changePassword page')
@@ -76,7 +77,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
           //if state is loading state
           if (state is OtpLoadingState) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: myLoadingIndicator(),
             );
           }
 
@@ -180,6 +181,25 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                       );
                     },
                   ),
+
+                  //skip option if user wants only if accocunt creatation time
+                  widget.routeName == 'homePage'
+                      ? TextButton(
+                          onPressed: () {
+                            //navigate to home page
+                            Navigator.pushReplacementNamed(
+                              context,
+                              widget.routeName,
+                            );
+                          },
+                          child: Text(
+                            "I'll do this later",
+                            style: TextStyle(
+                              color: Colors.black87,
+                            ),
+                          ),
+                        )
+                      : Text(""),
                 ],
               ),
             );

@@ -1,4 +1,5 @@
 import 'package:blogspot/core/utils/widgests/my_button.dart';
+import 'package:blogspot/core/utils/widgests/my_loading_indicator.dart';
 import 'package:blogspot/core/utils/widgests/my_snack_bar.dart';
 import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/otp_bloc/otp_bloc.dart';
@@ -17,14 +18,12 @@ class ForgotPasswordPage extends StatelessWidget {
     final double sHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: BlocConsumer<OtpBloc, OtpState>(
+        //ui builder
         builder: (context, state) {
-
           //if state will be loadingstate then show loading indicator
           if (state is OtpLoadingState) {
             //show loading
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: myLoadingIndicator(),);
           }
 
           //if state is not loading state then show page widget

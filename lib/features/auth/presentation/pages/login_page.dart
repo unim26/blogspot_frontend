@@ -1,5 +1,6 @@
 import 'package:blogspot/core/utils/methods/validator.dart';
 import 'package:blogspot/core/utils/widgests/my_button.dart';
+import 'package:blogspot/core/utils/widgests/my_loading_indicator.dart';
 import 'package:blogspot/core/utils/widgests/my_snack_bar.dart';
 import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
@@ -27,12 +28,13 @@ class LoginPage extends StatelessWidget {
     final double sHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: BlocConsumer<RemoteUserBloc, RemoteUserState>(
+      //ui builder
       builder: (context, state) {
         //if state of context will be loading
         if (state is RemoteUserLoadingState) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+
+          //show loading indicator
+          return Center(child: myLoadingIndicator(),);
         }
 
         //if state of context will be other than loading

@@ -1,5 +1,6 @@
 import 'package:blogspot/core/utils/methods/validator.dart';
 import 'package:blogspot/core/utils/widgests/my_button.dart';
+import 'package:blogspot/core/utils/widgests/my_loading_indicator.dart';
 import 'package:blogspot/core/utils/widgests/my_snack_bar.dart';
 import 'package:blogspot/core/utils/widgests/my_text_field.dart';
 import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
@@ -32,6 +33,7 @@ class ChangePasswordPage extends StatelessWidget {
     final double sHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: BlocConsumer<PasswordBloc, PasswordState>(
+        //listerner
         listener: (context, state) {
           //if state is error state
           if (state is PasswordFailToForgotState) {
@@ -58,12 +60,13 @@ class ChangePasswordPage extends StatelessWidget {
                 context, 'loginPage', (route) => route.isFirst);
           }
         },
+
+        //ui builder
         builder: (context, state) {
           //if state is loading state
           if (state is PasswordLoadingState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            //show loading indicator
+            return Center(child: myLoadingIndicator(),);
           }
 
           //if state is not loading state

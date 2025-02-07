@@ -10,7 +10,6 @@ import 'package:blogspot/features/auth/domain/usecases/user_usecase/logout_user_
 import 'package:blogspot/features/auth/domain/usecases/otp_usecase/send_otp_usecase.dart';
 import 'package:blogspot/features/auth/domain/usecases/user_usecase/signup_user_usecase.dart';
 import 'package:blogspot/features/auth/domain/usecases/otp_usecase/verify_otp_usecase.dart';
-import 'package:blogspot/features/auth/presentation/blocs/obscure_password/obscure_password_bloc.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/local/local_user_cubit.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/local/timer_provider.dart';
 import 'package:blogspot/features/auth/presentation/blocs/user/remote/otp_bloc/otp_bloc.dart';

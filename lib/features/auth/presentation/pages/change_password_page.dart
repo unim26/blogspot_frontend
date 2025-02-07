@@ -17,6 +17,9 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class ChangePasswordPage extends StatelessWidget {
   ChangePasswordPage({super.key, required this.userEmail});
 
+  // Create a ValueNotifier for confirm password visibility
+  final ValueNotifier<bool> isConfirmObscure = ValueNotifier<bool>(true);
+
   //user email
   final String userEmail;
 
@@ -132,32 +135,31 @@ class ChangePasswordPage extends StatelessWidget {
 
                     //text field ------> confirm password
 
-                    BlocBuilder<ObscurePasswordBloc, ObscurePasswordState>(
-                      buildWhen: (previous, current) => previous != current,
-                      builder: (context, state) {
+                    // Confirm Password Field - Using ValueNotifier
+                    ValueListenableBuilder<bool>(
+                      valueListenable: isConfirmObscure,
+                      builder: (context, isObscure, child) {
                         return myTextField(
-                            controller: confirmPasswordController,
-                            obscureText: state.isObsucre,
-                            keyboardType: TextInputType.visiblePassword,
-                            hintText: "*********",
-                            labelText: "confirm your new password",
-                            prefixIcon: Icons.lock,
-                            suffixIcon: state.isObsucre
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            onPressed: () {
-                              context.read<ObscurePasswordBloc>().add(
-                                    ObscurePasswordToggleEvent(
-                                        isObscure: !state.isObsucre),
-                                  );
-                            },
-                            validator: (val) {
-                              if (val != passwordController.text) {
-                                return "Password does not matched";
-                              } else {
-                                return null;
-                              }
-                            });
+                          controller: confirmPasswordController,
+                          obscureText: isObscure,
+                          keyboardType: TextInputType.visiblePassword,
+                          hintText: "*********",
+                          labelText: "Confirm your new password",
+                          prefixIcon: Icons.lock,
+                          suffixIcon: isObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onPressed: () {
+                            isConfirmObscure.value = !isConfirmObscure.value;
+                          },
+                          validator: (val) {
+                            if (val != passwordController.text) {
+                              return "Passwords do not match";
+                            } else {
+                              return null;
+                            }
+                          },
+                        );
                       },
                     ),
 
